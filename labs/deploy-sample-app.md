@@ -55,7 +55,7 @@ Here you'll create your own copy of the `gceme` sample app in [Cloud Source Repo
 
 1. Create a source repository.
   ```shell
-  $ gcloud beta source repos create sample-app
+  $ gcloud beta source repos create default
   ```
 
 1. Change directories to `sample-app` of the repo you cloned previously, then initialize the git repository.
