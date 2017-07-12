@@ -55,9 +55,11 @@ Create a branch for the staging environment called `staging`
 
 The [`Jenkinsfile`](https://jenkins.io/doc/book/pipeline/jenkinsfile/) is written using the Jenkins Workflow DSL (Groovy-based). It allows an entire build pipeline to be expressed in a single script that lives alongside your source code and supports powerful features like parallelization, stages, and user input.
 
-Modify your `Jenkinsfile` script so it contains the correct project name on line 2.
+Modify line 2 of your `Jenkinsfile` script so it contains the output of the following command. 
 
-**Be sure to replace _REPLACE_WITH_YOUR_PROJECT_ID_ on line 2 with your project name:**
+```shell
+$ echo $(gcloud info --format='value(config.project)')
+```
 
 Don't commit the new `Jenkinsfile` just yet. You'll make one more change in the next section, then commit and push them together.
 
