@@ -126,13 +126,14 @@ $ git checkout master
 $ git merge staging
 $ git push origin master
 ```
+
 In a minute or so you should see that the master job in the sample-app folder has been kicked off:
 
-    ![](../docs/img/production.png)
+![](../docs/img/production.png)
 
 Clicking on the `master` link will show you the stages of your pipeline as well as pass/fail and timing characteristics.
 
-    ![](../docs/img/production_pipeline.png)
+![](../docs/img/production_pipeline.png)
 
 Open the terminal that's polling staging's `/version` URL and observe that the new version (2.0.0) has been rolled out and is serving all requests.
 
