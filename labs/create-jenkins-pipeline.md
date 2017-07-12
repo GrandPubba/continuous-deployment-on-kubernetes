@@ -55,11 +55,9 @@ Create a branch for the staging environment called `staging`
 
 The [`Jenkinsfile`](https://jenkins.io/doc/book/pipeline/jenkinsfile/) is written using the Jenkins Workflow DSL (Groovy-based). It allows an entire build pipeline to be expressed in a single script that lives alongside your source code and supports powerful features like parallelization, stages, and user input.
 
-Modify line 2 of your `Jenkinsfile` script so it contains the output of the following command. 
+Modify your `Jenkinsfile` script so it contains the correct project name on line 2.
 
-```shell
-$ echo $(gcloud info --format='value(config.project)')
-```
+**Be sure to replace _REPLACE_WITH_YOUR_PROJECT_ID_ on line 2 with your project name:**
 
 Don't commit the new `Jenkinsfile` just yet. You'll make one more change in the next section, then commit and push them together.
 
@@ -121,7 +119,7 @@ Track the output for a few minutes and watch for the `kubectl --namespace=produc
 
 You have now rolled out that change to a subset of users.
 
-Once the change is deployed to staging, you can continue to roll it out to the rest of your users by creating a branch called `production` and pushing it to the Git server:
+Once the change is deployed to staging, you can continue to roll it out to the rest of your users by merging the staging branch into the master branch:
 
 ```shell
 $ git checkout master
