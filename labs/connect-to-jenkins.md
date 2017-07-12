@@ -8,7 +8,7 @@ NAME      RULE      BACKEND            ADDRESS         AGE
 jenkins      -         master:8080        130.X.X.X      4m
 ```
 
-The loadbalancer will begin health checks against your Jenkins instance. Once the checks go to healthy you will be able to access your Jenkins instance:
+The loadbalancer will begin health checks against your Jenkins instance. Once the checks go to ```Unknown``` you will be able to access your Jenkins instance:
 ```shell
 $  kubectl describe ingress jenkins --namespace jenkins
 Name:			jenkins
@@ -26,7 +26,7 @@ Annotations:
   static-ip:			k8s-fw-jenkins-jenkins
   target-proxy:			k8s-tp-jenkins-jenkins
   url-map:			k8s-um-jenkins-jenkins
-  backends:			{"k8s-be-32371":"HEALTHY"}   <---- LOOK FOR THIS TO BE HEALTHY
+  backends:			{"k8s-be-32371":"Unknown"}   <---- LOOK FOR THIS TO BE UNKNOWN
   forwarding-rule:		k8s-fw-jenkins-jenkins
 Events:
   FirstSeen	LastSeen	Count	From				SubobjectPath	Type		Reason	Message
