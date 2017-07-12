@@ -20,9 +20,7 @@ You'll have two primary environments - staging and production - and use Kubernet
 1. Create the staging and production Deployments and Services:
 
     ```shell
-    $ kubectl --namespace=production apply -f k8s/production
-    $ kubectl --namespace=production apply -f k8s/staging
-    $ kubectl --namespace=production apply -f k8s/services
+    $ kubectl --namespace=production apply -f k8s/production -f k8s/staging -f k8s/services
     ```
 
 1. Scale the production service:
