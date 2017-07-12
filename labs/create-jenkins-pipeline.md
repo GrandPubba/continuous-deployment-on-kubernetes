@@ -78,21 +78,21 @@ You can use the [labels](http://kubernetes.io/docs/user-guide/labels/) `env: pro
 
 1. In the `sample-app` repository on your workstation open `html.go` and replace the word `blue` with `orange` (there should be exactly two occurrences):
 
-  ```html
+```html
   //snip
   <div class="card orange">
   <div class="card-content white-text">
   <div class="card-title">Backend that serviced this request</div>
   //snip
-  ```
+```
 
 1. In the same repository, open `main.go` and change the version number from `1.0.0` to `2.0.0`:
 
-   ```go
+```go
    //snip
    const version string = "2.0.0"
    //snip
-   ```
+```
 
 1. `git add Jenkinsfile html.go main.go`, then `git commit -m "Version 2"`, and finally `git push origin staging` your change.
 
@@ -106,7 +106,7 @@ You can use the [labels](http://kubernetes.io/docs/user-guide/labels/) `env: pro
 
 1. Track the output for a few minutes and watch for the `kubectl --namespace=production apply...` to begin. When it starts, open the terminal that's polling staging's `/version` URL and observe it start to change in some of the requests:
 
-   ```
+```
   1.0.0
   1.0.0
   1.0.0
@@ -117,17 +117,17 @@ You can use the [labels](http://kubernetes.io/docs/user-guide/labels/) `env: pro
   1.0.0
   1.0.0
   1.0.0
-   ```
+```
 
-   You have now rolled out that change to a subset of users.
+You have now rolled out that change to a subset of users.
 
 1. Once the change is deployed to staging, you can continue to roll it out to the rest of your users by creating a branch called `production` and pushing it to the Git server:
 
-   ```shell
+```shell
     $ git checkout master
     $ git merge staging
     $ git push origin master
-   ```
+```
 1. In a minute or so you should see that the master job in the sample-app folder has been kicked off:
 
     ![](../docs/img/production.png)
