@@ -45,14 +45,6 @@ A job entitled "Branch indexing" was kicked off to see identify the branches in 
 The first run of the job will fail until the project name is set properly in the next step.
 
 
-
-
-
-
-
-
-
-
 ### Phase 3:  Modify Jenkinsfile, then build and test the app
 
 Create a branch for the staging environment called `staging`
@@ -76,7 +68,8 @@ The staging environment is rolled out as a percentage of the pods behind the pro
 In this case we have 1 out of 5 of our frontends running the staging code and the other 4 running the production code. This allows you to ensure that the staging code is not negatively affecting users before rolling out to your full fleet.
 You can use the [labels](http://kubernetes.io/docs/user-guide/labels/) `env: production` and `env: staging` in Google Cloud Monitoring in order to monitor the performance of each version individually.
 
-1. In the `sample-app` repository on your workstation open `html.go` and replace the word `blue` with `orange` (there should be exactly two occurrences):
+
+In the `sample-app` repository on your workstation open `html.go` and replace the word `blue` with `orange` (there should be exactly two occurrences):
 
 ```html
   //snip
@@ -86,7 +79,7 @@ You can use the [labels](http://kubernetes.io/docs/user-guide/labels/) `env: pro
   //snip
 ```
 
-1. In the same repository, open `main.go` and change the version number from `1.0.0` to `2.0.0`:
+In the same repository, open `main.go` and change the version number from `1.0.0` to `2.0.0`:
 
 ```go
    //snip
@@ -94,7 +87,12 @@ You can use the [labels](http://kubernetes.io/docs/user-guide/labels/) `env: pro
    //snip
 ```
 
-1. `git add Jenkinsfile html.go main.go`, then `git commit -m "Version 2"`, and finally `git push origin staging` your change.
+Back in the console
+```shell
+$ git add Jenkinsfile html.go main.go
+$ git commit -m "Version 2"
+$ git push origin staging
+```
 
 1. When your change has been pushed to the Git repository, navigate to Jenkins. Your build should start shortly.
 
@@ -104,7 +102,7 @@ You can use the [labels](http://kubernetes.io/docs/user-guide/labels/) `env: pro
 
   ![](../docs/img/console.png)
 
-1. Track the output for a few minutes and watch for the `kubectl --namespace=production apply...` to begin. When it starts, open the terminal that's polling staging's `/version` URL and observe it start to change in some of the requests:
+Track the output for a few minutes and watch for the `kubectl --namespace=production apply...` to begin. When it starts, open the terminal that's polling staging's `/version` URL and observe it start to change in some of the requests:
 
 ```
   1.0.0
@@ -121,34 +119,34 @@ You can use the [labels](http://kubernetes.io/docs/user-guide/labels/) `env: pro
 
 You have now rolled out that change to a subset of users.
 
-1. Once the change is deployed to staging, you can continue to roll it out to the rest of your users by creating a branch called `production` and pushing it to the Git server:
+Once the change is deployed to staging, you can continue to roll it out to the rest of your users by creating a branch called `production` and pushing it to the Git server:
 
 ```shell
-    $ git checkout master
-    $ git merge staging
-    $ git push origin master
+$ git checkout master
+$ git merge staging
+$ git push origin master
 ```
-1. In a minute or so you should see that the master job in the sample-app folder has been kicked off:
+In a minute or so you should see that the master job in the sample-app folder has been kicked off:
 
     ![](../docs/img/production.png)
 
-1. Clicking on the `master` link will show you the stages of your pipeline as well as pass/fail and timing characteristics.
+Clicking on the `master` link will show you the stages of your pipeline as well as pass/fail and timing characteristics.
 
     ![](../docs/img/production_pipeline.png)
 
-1. Open the terminal that's polling staging's `/version` URL and observe that the new version (2.0.0) has been rolled out and is serving all requests.
+Open the terminal that's polling staging's `/version` URL and observe that the new version (2.0.0) has been rolled out and is serving all requests.
 
-   ```
-   2.0.0
-   2.0.0
-   2.0.0
-   2.0.0
-   2.0.0
-   2.0.0
-   2.0.0
-   2.0.0
-   2.0.0
-   2.0.0
-   ```
+```
+2.0.0
+2.0.0
+2.0.0
+2.0.0
+2.0.0
+2.0.0
+2.0.0
+2.0.0
+2.0.0
+2.0.0
+```
 
-1. Look at the `Jenkinsfile` in the project to see how the workflow is written.
+Look at the `Jenkinsfile` in the project to see how the workflow is written.
